@@ -1,0 +1,73 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #6a0dad, #b19cd9);
+  color: #333;
+}
+
+.header, .footer {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2.5em;
+  color: #6a0dad;
+}
+
+.footer {
+  margin-top: auto;
+}
+
+.footer p {
+  margin: 0;
+  color: #6a0dad;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.plotContainer {
+  width: 45%;
+  max-width: 600px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 20px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.plotContainer:hover {
+  transform: scale(1.05);
+}
+
+.fadeIn {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInAnimation 1s forwards;
+}
+
+@keyframes fadeInAnimation {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
