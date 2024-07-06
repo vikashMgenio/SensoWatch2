@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { getInfluxData } from '../lib/influxdb';
+import styles from './Dashboard.module.css';
 
 const Gauge = dynamic(() => import('@influxdata/giraffe').then(mod => mod.Gauge), { ssr: false });
 
@@ -12,13 +13,13 @@ const GaugeComponent = ({ dataQuery, title, yField }) => {
     const fetchData = async () => {
       try {
         const data = await getInfluxData(dataQuery);
-        console.log('Fetched data:', data); // Log fetched data
+        console.log('Fetched data:', data);
         if (!data || data.length === 0) {
           throw new Error('No data returned from InfluxDB');
         }
 
         const filteredData = data.filter(d => d[yField] !== null && d[yField] !== undefined);
-        const latestValue = filteredData[filteredData.length - 1]?.[yField] ?? 0; // Default to 0 if null or undefined
+        const latestValue = filteredData[filteredData.length - 1]?.[yField] ?? 0;
         setValue(latestValue);
       } catch (err) {
         console.error('Data processing error:', err);
@@ -34,7 +35,7 @@ const GaugeComponent = ({ dataQuery, title, yField }) => {
 
   return (
     <div>
-      <h2>{title}</h2>
+      <h2 className={styles.chartTitle}>{title}</h2>
       <Gauge
         value={value}
         max={100}

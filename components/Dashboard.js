@@ -19,7 +19,7 @@ const Dashboard = () => {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <h1>InfluxDB Real-time Dashboard</h1>
+        <h1 className={styles.headerTitle}>InfluxDB Real-time Dashboard</h1>
       </header>
       <main className={styles.main}>
         {isClient && (
@@ -74,3 +74,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

@@ -2,20 +2,22 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(45deg, #6a0dad, #b19cd9);
-  color: #333;
+  background: linear-gradient(45deg, #202226, #292d33);
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
 }
 
 .header, .footer {
   text-align: center;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: #1b1e23;
+  color: #fff;
 }
 
 .header h1 {
   margin: 0;
   font-size: 2.5em;
-  color: #6a0dad;
+  color: #20a0ff;
 }
 
 .footer {
@@ -24,7 +26,6 @@
 
 .footer p {
   margin: 0;
-  color: #6a0dad;
 }
 
 .main {
@@ -33,7 +34,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 10px;
 }
 
 .dashboard {
@@ -47,10 +48,10 @@
   width: 45%;
   max-width: 600px;
   height: 500px;
-  background: rgba(255, 255, 255, 0.9);
+  background: #2c2f34;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   margin: 20px;
   transition: transform 0.3s, opacity 0.3s;
 }
@@ -70,4 +71,11 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.chartTitle {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  color: #20a0ff;
 }

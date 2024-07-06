@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import { newTable } from '@influxdata/giraffe';
 import { useEffect, useState } from 'react';
 import { getInfluxData } from '../lib/influxdb';
+import styles from './Dashboard.module.css';
 
 const Plot = dynamic(() => import('@influxdata/giraffe').then(mod => mod.Plot), { ssr: false });
 
@@ -13,7 +14,7 @@ const LineChartComponent = ({ dataQuery, title, yField }) => {
     const fetchData = async () => {
       try {
         const data = await getInfluxData(dataQuery);
-        console.log('Fetched data:', data); // Log fetched data
+        console.log('Fetched data:', data);
         if (!data || data.length === 0) {
           throw new Error('No data returned from InfluxDB');
         }
@@ -39,7 +40,7 @@ const LineChartComponent = ({ dataQuery, title, yField }) => {
 
   return (
     <div>
-      <h2>{title}</h2>
+      <h2 className={styles.chartTitle}>{title}</h2>
       <Plot
         config={{
           table,
