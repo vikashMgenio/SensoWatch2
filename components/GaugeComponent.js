@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import { newTable } from '@influxdata/giraffe';
 import { useEffect, useState } from 'react';
 import { getInfluxData } from '../lib/influxdb';
 
@@ -13,12 +12,12 @@ const GaugeComponent = ({ dataQuery, title }) => {
     const fetchData = async () => {
       try {
         const data = await getInfluxData(dataQuery);
+        console.log('Fetched data:', data); // Log fetched data
         if (!data || data.length === 0) {
           throw new Error('No data returned from InfluxDB');
         }
-
         const latestValue = data[data.length - 1]._value;
-        setValue(latestValue!==null ? latestValue: -1);
+        setValue(latestValue !== null ? latestValue : -1);
       } catch (err) {
         console.error('Data processing error:', err);
         setError(err.message);

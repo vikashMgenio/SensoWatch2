@@ -13,16 +13,18 @@ const LineChartComponent = ({ dataQuery, title }) => {
     const fetchData = async () => {
       try {
         const data = await getInfluxData(dataQuery);
-        console.log(data)
+        console.log('Fetched data:', data); // Log fetched data
         if (!data || data.length === 0) {
           throw new Error('No data returned from InfluxDB');
         }
-        data.filter((l)=>l._value!==null);
-        console.log(data)
+
+        const columns = Object.keys(data[0]).filter(key => key !== 'result' && key !== 'table');
         const tableBuilder = newTable(data.length);
-        tableBuilder.addColumn('_time', 'time', 'dateTime:RFC3339', data.map(d => new Date(d._time)));
-        tableBuilder.addColumn('_value', 'number', 'number', data.map(d => d._value !==null ? d._value : -1));
-        console.log("check tool")
+
+        columns.forEach(column => {
+          tableBuilder.addColumn(column, column, typeof data[0][column], data.map(d => d[column]));
+        });
+
         setTable(tableBuilder);
       } catch (err) {
         console.error('Data processing error:', err);
