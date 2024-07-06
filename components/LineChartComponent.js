@@ -5,7 +5,7 @@ import { getInfluxData } from '../lib/influxdb';
 
 const Plot = dynamic(() => import('@influxdata/giraffe').then(mod => mod.Plot), { ssr: false });
 
-const LineChartComponent = ({ dataQuery, title }) => {
+const LineChartComponent = ({ dataQuery, title, yField }) => {
   const [table, setTable] = useState(null);
   const [error, setError] = useState(null);
 
@@ -18,12 +18,11 @@ const LineChartComponent = ({ dataQuery, title }) => {
           throw new Error('No data returned from InfluxDB');
         }
 
-        const columns = Object.keys(data[0]).filter(key => key !== 'result' && key !== 'table');
-        const tableBuilder = newTable(data.length);
+        const filteredData = data.filter(d => d[yField] !== null && d[yField] !== undefined);
 
-        columns.forEach(column => {
-          tableBuilder.addColumn(column, column, typeof data[0][column], data.map(d => d[column]));
-        });
+        const tableBuilder = newTable(filteredData.length);
+        tableBuilder.addColumn('_time', 'time', 'dateTime:RFC3339', filteredData.map(d => new Date(d._time)));
+        tableBuilder.addColumn(yField, yField, 'number', filteredData.map(d => parseFloat(d[yField])));
 
         setTable(tableBuilder);
       } catch (err) {
@@ -33,7 +32,7 @@ const LineChartComponent = ({ dataQuery, title }) => {
     };
 
     fetchData();
-  }, [dataQuery]);
+  }, [dataQuery, yField]);
 
   if (error) return <div>Error: {error}</div>;
   if (!table) return <div>Loading...</div>;
@@ -48,7 +47,7 @@ const LineChartComponent = ({ dataQuery, title }) => {
             {
               type: 'line',
               x: '_time',
-              y: '_value',
+              y: yField,
               colors: ['#31C0F6'],
               lineWidth: 2,
               lineDash: [0],
