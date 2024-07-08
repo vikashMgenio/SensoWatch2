@@ -3,7 +3,7 @@ import { newTable } from '@influxdata/giraffe';
 import { useEffect, useState } from 'react';
 import { getInfluxData } from '../lib/influxdb';
 
-const Plot = dynamic(() => import('@influxdata/giraffe').then(mod => mod.Plot), { ssr: false });
+// const Plot = dynamic(() => import('@influxdata/giraffe').then(mod => mod.Plot), { ssr: false });
 
 const PlotComponent = ({ dataQuery, title }) => {
   const [table, setTable] = useState(null);
@@ -33,7 +33,7 @@ const PlotComponent = ({ dataQuery, title }) => {
       }
     };
 
-    fetchData();
+    // fetchData();
   }, [dataQuery]);
 
   if (error) return <div>Error: {error}</div>;
@@ -42,7 +42,7 @@ const PlotComponent = ({ dataQuery, title }) => {
   return (
     <div>
       <h2>{title}</h2>
-      <Plot
+      {/* <Plot
         config={{
           table,
           layers: [
@@ -60,7 +60,7 @@ const PlotComponent = ({ dataQuery, title }) => {
           yAxisLabel: 'Value',
           timeZone: 'UTC',
         }}
-      />
+      /> */}
     </div>
   );
 };

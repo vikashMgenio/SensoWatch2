@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { 
+import {
   getLoadDataQuery, getPowerDataQuery, getTemperatureDataQuery, getVibrationDataQuery,
-  getMsePercentageDataQuery, getMlVibrationDataQuery 
+  getMsePercentageDataQuery, getMlVibrationDataQuery
 } from '../lib/influxdb';
 import dynamic from 'next/dynamic';
 import styles from './Dashboard.module.css';
@@ -63,6 +63,7 @@ const Dashboard = () => {
             <div className={`${styles.plotContainer} ${styles.fadeIn}`}>
               <GaugeComponent dataQuery={getMlVibrationDataQuery} title="ML Results: Vibration Gauge" yField="vibration" />
             </div>
+
           </div>
         )}
       </main>
